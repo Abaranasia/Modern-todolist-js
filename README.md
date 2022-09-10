@@ -1,5 +1,7 @@
-# Webpack configurado
+## Modern Todo-list with Javascript over Webpack
 
-Para usar este repositorio, deberán ejecutar el comando de ```npm install```
+### To Install
+npm install
 
-Pero esto lo veremos en la siguiente sección
+### To Execute
+npm run start
