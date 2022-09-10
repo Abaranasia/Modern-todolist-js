@@ -4,6 +4,9 @@ import {
   Todo,
   TodoList,
 } from './classes';
+import {
+  createTodoHtml,
+} from './js/components';
 
 const todoList = new TodoList();
 const task = new Todo('Larning Javascript');
@@ -11,3 +14,5 @@ const task = new Todo('Larning Javascript');
 todoList.newTodo(task);
 
 console.log(todoList);
+
+createTodoHtml(task);
