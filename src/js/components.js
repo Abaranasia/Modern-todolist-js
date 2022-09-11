@@ -54,5 +54,10 @@ divTodoList.addEventListener('click', (event) => {
     // click on checkbox, so toggle status
     todoList.toggleTodo(todoId);
     todoElement.classList.toggle('completed');
+  } else if (elementName.includes('button')) {
+    // click on X button, so delete task
+    todoList.deleteTodo(todoId);
+    divTodoList.removeChild(todoElement);
   }
+  console.log(todoList);
 });
