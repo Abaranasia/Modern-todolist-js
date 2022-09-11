@@ -1,10 +1,15 @@
-/* eslint-disable linebreak-style */
+/* eslint-disable import/no-cycle */
+import { todoList } from '..';
+import { Todo } from '../classes';
+
 /* eslint-disable import/prefer-default-export */
 const divTodoList = document.querySelector('.todo-list');
+const taskInput = document.querySelector('.new-todo');
+const clearButton = document.querySelector('.clear-completed');
 
 export const createTodoHtml = (todo) => {
   const htmlTodo = `
-   <li class=${todo.completed ? 'completed' : ''} data-id="${todo.id}">
+   <li data-id="${todo.id}" class=${todo.completed ? 'completed' : ''} >
       <div class="view">
         <input 
           class = "toggle"
@@ -26,3 +31,45 @@ export const createTodoHtml = (todo) => {
 
   return div;
 };
+
+// Events
+taskInput.addEventListener('keyup', (event) => {
+  const { keyCode, target } = event;
+
+  if (keyCode === 13 && target.value.length > 0) {
+    const newTodo = new Todo(target.value);
+
+    todoList.newTodo(newTodo);
+    createTodoHtml(newTodo);
+
+    taskInput.value = '';
+  }
+});
+
+divTodoList.addEventListener('click', (event) => {
+  const elementName = event.target.localName; // input, label, button...
+  const todoElement = event.target.parentElement.parentElement;
+  const todoId = todoElement.getAttribute('data-id');
+
+  if (elementName.includes('input')) {
+    // click on checkbox, so toggle status
+    todoList.toggleTodo(todoId);
+    todoElement.classList.toggle('completed');
+  } else if (elementName.includes('button')) {
+    // click on X button, so delete task
+    todoList.deleteTodo(todoId); // Delete in array
+    divTodoList.removeChild(todoElement); // Delete in HTML
+  }
+
+  clearButton.addEventListener('click', () => {
+    todoList.deleteCompleted(); // Delete in array
+    for (let i = divTodoList.children.length - 1; i >= 0; i--) {
+      const element = divTodoList.children[i];
+      if (element.classList.contains('completed')) {
+        divTodoList.removeChild(element); // Delete in HTML
+      }
+    }
+  });
+
+  console.log(todoList);
+});
