@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable import/prefer-default-export */
 export class TodoList {
   constructor() {
@@ -9,15 +8,16 @@ export class TodoList {
     this.todos.push(todo);
   }
 
-  deleteTodo(id) {
-
-  }
+  deleteTodo(id) {}
 
   toggleTodo(id) {
-
+    for (const todo of this.todos) {
+      if (todo.id == id) {
+        todo.completed = !todo.completed;
+        break;
+      }
+    }
   }
 
-  deleteCompleted() {
-
-  }
+  deleteCompleted() {}
 }
