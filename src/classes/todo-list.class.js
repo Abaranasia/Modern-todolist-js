@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable import/prefer-default-export */
 export class TodoList {
   constructor() {
@@ -8,7 +9,10 @@ export class TodoList {
     this.todos.push(todo);
   }
 
-  deleteTodo(id) {}
+  deleteTodo(id) {
+    this.todos = this.todos.filter((todo) => todo.id != id);
+    // just != because compares strings and number
+  }
 
   toggleTodo(id) {
     for (const todo of this.todos) {
