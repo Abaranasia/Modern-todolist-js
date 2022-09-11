@@ -1,6 +1,11 @@
 /* eslint-disable linebreak-style */
+
+import { todoList } from '..';
+import { Todo } from '../classes';
+
 /* eslint-disable import/prefer-default-export */
 const divTodoList = document.querySelector('.todo-list');
+const taskInput = document.querySelector('.new-todo');
 
 export const createTodoHtml = (todo) => {
   const htmlTodo = `
@@ -26,3 +31,17 @@ export const createTodoHtml = (todo) => {
 
   return div;
 };
+
+// Events
+taskInput.addEventListener('keyup', (event) => {
+  const { keyCode, target } = event;
+
+  if (keyCode === 13 && target.value.length > 0) {
+    const newTodo = new Todo(target.value);
+
+    todoList.newTodo(newTodo);
+    createTodoHtml(newTodo);
+
+    taskInput.value = '';
+  }
+});
