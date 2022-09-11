@@ -8,7 +8,7 @@ import {
   createTodoHtml,
 } from './js/components';
 
-const todoList = new TodoList();
+export const todoList = new TodoList();
 const task = new Todo('Larning Javascript');
 
 todoList.newTodo(task);
