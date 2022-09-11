@@ -1,5 +1,4 @@
-/* eslint-disable linebreak-style */
-
+/* eslint-disable import/no-cycle */
 import { todoList } from '..';
 import { Todo } from '../classes';
 
@@ -9,7 +8,7 @@ const taskInput = document.querySelector('.new-todo');
 
 export const createTodoHtml = (todo) => {
   const htmlTodo = `
-   <li class=${todo.completed ? 'completed' : ''} data-id="${todo.id}">
+   <li data-id="${todo.id}" class=${todo.completed ? 'completed' : ''} >
       <div class="view">
         <input 
           class = "toggle"
@@ -43,5 +42,17 @@ taskInput.addEventListener('keyup', (event) => {
     createTodoHtml(newTodo);
 
     taskInput.value = '';
+  }
+});
+
+divTodoList.addEventListener('click', (event) => {
+  const elementName = event.target.localName; // input, label, button...
+  const todoElement = event.target.parentElement.parentElement;
+  const todoId = todoElement.getAttribute('data-id');
+
+  if (elementName.includes('input')) {
+    // click on checkbox, so toggle status
+    todoList.toggleTodo(todoId);
+    todoElement.classList.toggle('completed');
   }
 });
