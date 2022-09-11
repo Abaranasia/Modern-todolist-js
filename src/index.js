@@ -1,18 +1,14 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/no-cycle */
 import './styles.css';
 
-import {
-  Todo,
-  TodoList,
-} from './classes';
-import {
-  createTodoHtml,
-} from './js/components';
+import { Todo, TodoList } from './classes';
+import { createTodoHtml } from './js/components';
 
 export const todoList = new TodoList();
-const task = new Todo('Larning Javascript');
 
-todoList.newTodo(task);
-
+todoList.todos.forEach(createTodoHtml);
 console.log(todoList);
-
-createTodoHtml(task);
+// todoList.todos.forEach((todo) => {
+//   createTodoHtml(todo);
+// });
