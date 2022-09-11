@@ -5,6 +5,7 @@ import { Todo } from '../classes';
 /* eslint-disable import/prefer-default-export */
 const divTodoList = document.querySelector('.todo-list');
 const taskInput = document.querySelector('.new-todo');
+const clearButton = document.querySelector('.clear-completed');
 
 export const createTodoHtml = (todo) => {
   const htmlTodo = `
@@ -56,8 +57,19 @@ divTodoList.addEventListener('click', (event) => {
     todoElement.classList.toggle('completed');
   } else if (elementName.includes('button')) {
     // click on X button, so delete task
-    todoList.deleteTodo(todoId);
-    divTodoList.removeChild(todoElement);
+    todoList.deleteTodo(todoId); // Delete in array
+    divTodoList.removeChild(todoElement); // Delete in HTML
   }
+
+  clearButton.addEventListener('click', () => {
+    todoList.deleteCompleted(); // Delete in array
+    for (let i = divTodoList.children.length - 1; i >= 0; i--) {
+      const element = divTodoList.children[i];
+      if (element.classList.contains('completed')) {
+        divTodoList.removeChild(element); // Delete in HTML
+      }
+    }
+  });
+
   console.log(todoList);
 });
