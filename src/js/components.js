@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-plusplus */
 /* eslint-disable import/no-cycle */
 import { todoList } from '..';
 import { Todo } from '../classes';
@@ -6,6 +8,8 @@ import { Todo } from '../classes';
 const divTodoList = document.querySelector('.todo-list');
 const taskInput = document.querySelector('.new-todo');
 const clearButton = document.querySelector('.clear-completed');
+const ulFilters = document.querySelector('.filters');
+const anchorFilters = document.querySelectorAll('.filtro');
 
 export const createTodoHtml = (todo) => {
   const htmlTodo = `
@@ -72,4 +76,38 @@ divTodoList.addEventListener('click', (event) => {
   });
 
   console.log(todoList);
+});
+
+ulFilters.addEventListener('click', (event) => {
+  console.log(event.target.text);
+
+  const newFilter = event.target.text;
+  // eslint-disable-next-line no-useless-return
+  if (!newFilter) return;
+
+  anchorFilters.forEach((elem) => elem.classList.remove('selected'));
+  event.target.classList.add('selected');
+
+  for (const elem of divTodoList.children) {
+    elem.classList.remove('hidden');
+    const completed = elem.classList.contains('completed');
+
+    switch (newFilter) {
+      case 'Pending':
+        if (completed) {
+          elem.classList.add('hidden');
+        }
+        break;
+
+      case 'Completed':
+        if (!completed) {
+          elem.classList.add('hidden');
+        }
+        break;
+
+      default:
+        elem.classList.remove('hidden');
+        break;
+    }
+  }
 });

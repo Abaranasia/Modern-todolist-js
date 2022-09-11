@@ -2,13 +2,10 @@
 /* eslint-disable import/no-cycle */
 import './styles.css';
 
-import { Todo, TodoList } from './classes';
+import { TodoList } from './classes';
 import { createTodoHtml } from './js/components';
 
 export const todoList = new TodoList();
 
 todoList.todos.forEach(createTodoHtml);
 console.log(todoList);
-// todoList.todos.forEach((todo) => {
-//   createTodoHtml(todo);
-// });

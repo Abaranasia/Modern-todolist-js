@@ -1,4 +1,7 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-restricted-syntax */
+import { Todo } from './todo.class';
+
 /* eslint-disable import/prefer-default-export */
 export class TodoList {
   constructor() {
@@ -18,11 +21,12 @@ export class TodoList {
 
   toggleTodo(id) {
     for (const todo of this.todos) {
-      if (todo.id == id) { // Only == because we compare string and number
+      if (todo.id == id) {
+        // Only == because we compare string and number
         todo.completed = !todo.completed;
         break;
       }
-    };
+    }
     this.saveToLocalStorage();
   }
 
@@ -36,8 +40,12 @@ export class TodoList {
   }
 
   loadFromLocalStorage() {
-    this.todos = (localStorage.getItem('todos'))
+    this.todos = localStorage.getItem('todos')
       ? JSON.parse(localStorage.getItem('todos', this.todos))
       : [];
+
+    // Next line converts obj to todo instances
+    this.todos = this.todos.map((obj) => Todo.fromJson(obj));
+    // this.todos = this.todos.map(Todo.fromJson); // Same functionality than previous line
   }
 }
